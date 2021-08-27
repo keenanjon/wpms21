@@ -8,6 +8,7 @@ import {
   Image,
   Platform,
 } from 'react-native';
+import {TouchableWithoutFeedback} from 'react-native-web';
 
 const ListItem = ({singleMedia}) => {
   return (
@@ -20,7 +21,7 @@ const ListItem = ({singleMedia}) => {
       </View>
       <View style={styles.textbox}>
         <Text style={styles.listtitle}>{singleMedia.title}</Text>
-        <Text>{singleMedia.description}</Text>
+        <Text style={styles.descriptiontext}>{singleMedia.description}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -38,8 +39,8 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     padding: 15,
-    marginBottom: 5,
-    backgroundColor: 'pink',
+    marginBottom: 10,
+    backgroundColor: '#20202d',
     borderRadius: 0,
     flex: 1,
   },
@@ -47,17 +48,23 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   textbox: {
-    flex: 2,
-    padding: 10,
+    flex: 1,
+    paddingLeft: 10,
+    overflow: 'hidden',
   },
   image: {
     flex: 1,
     borderRadius: 3,
+    borderBottomLeftRadius: 50,
   },
   listtitle: {
     fontWeight: 'bold',
     fontSize: 20,
     paddingBottom: 15,
+    color: 'white',
+  },
+  descriptiontext: {
+    color: '#EAEAEE',
   },
 });
 
