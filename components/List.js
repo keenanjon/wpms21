@@ -1,22 +1,27 @@
 import React from 'react';
 import {FlatList} from 'react-native';
 import {useMedia} from '../hooks/ApiHooks';
+import PropTypes from 'prop-types';
 
 import ListItem from './ListItem';
 
-const List = () => {
+const List = ({navigation}) => {
   const {mediaArray} = useMedia();
   console.log('List: mediaArray', mediaArray);
 
   return (
     <FlatList
       data={mediaArray}
-      renderItem={({item}) => <ListItem singleMedia={item} />}
+      renderItem={({item}) => (
+        <ListItem singleMedia={item} navigation={navigation} />
+      )}
       keyExtractor={(item, index) => index.toString()}
     />
   );
 };
 
-List.propTypes = {};
+List.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
 
 export default List;
