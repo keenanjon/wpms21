@@ -10,7 +10,7 @@ const Profile = (props) => {
   );
 };
 
-Profile.props = {};
+Profile.propTypes = {};
 
 const styles = StyleSheet.create({
   container: {
