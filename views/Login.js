@@ -7,8 +7,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({navigation}) => {
   // props is needed for navigation
-  const [isLoggedIn, setIsLoggedIn] = useContext(MainContext);
-  console.log('ili', isLoggedIn);
+  const {setIsLoggedIn} = useContext(MainContext);
+  //console.log('ili', isLoggedIn);
   const logIn = async () => {
     await AsyncStorage.setItem('userToken', 'abc');
     console.log('login async token', await AsyncStorage.getItem('userToken'));
