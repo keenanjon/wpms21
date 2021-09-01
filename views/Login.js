@@ -1,36 +1,55 @@
-import React, {useEffect} from 'react';
-import {StyleSheet, View, Text, Button, Us} from 'react-native';
+import React, {useEffect, useContext} from 'react';
+import {StyleSheet, View, Text} from 'react-native';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
-import {useContext} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useUser} from '../hooks/ApiHooks';
+import {RegisterForm} from '../components/RegisterForm';
+import {LoginForm} from '../components/LoginForm';
 
 const Login = ({navigation}) => {
-  // props is needed for navigation
   const {setIsLoggedIn} = useContext(MainContext);
-  //console.log('ili', isLoggedIn);
-  const logIn = async () => {
-    await AsyncStorage.setItem('userToken', 'abc');
-    console.log('login async token', await AsyncStorage.getItem('userToken'));
-    setIsLoggedIn(true);
-    //props.navigation.navigate('Home');
+  // const {login} = useLogin();
+  const {checkToken} = useUser();
+  /*
+  const doLogin = async () => {
+    try {
+      const loginInfo = await login(
+        JSON.stringify({
+          username: 'jon',
+          password: 'asukkipasukki2',
+        })
+      );
+      console.log('doLogin response ', loginInfo);
+      await AsyncStorage.setItem('userToken', loginInfo.token);
+      // TODO: Save user info to main context
+      setIsLoggedIn(true);
+    } catch (error) {
+      console.log('doLogin error ', error);
+    }
   };
+  */
 
   const getToken = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
-    console.log('token', userToken);
-    if (userToken === 'abc') {
-      setIsLoggedIn(true);
-      //navigation.navigate('Home');
+    console.log('logIn asyncstorage token: ', userToken);
+    if (userToken) {
+      const userInfo = await checkToken(userToken);
+      if (userInfo.user_id) {
+        // TODO: save user into to maincontext
+        setIsLoggedIn(true);
+      }
     }
   };
   useEffect(() => {
     getToken();
   }, []);
+
   return (
     <View style={styles.container}>
       <Text>Login</Text>
-      <Button title="Sign in!" onPress={logIn} />
+      <RegisterForm navigation={navigation} />
+      <LoginForm navigation={navigation} />
     </View>
   );
 };

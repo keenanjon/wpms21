@@ -1,14 +1,13 @@
 import {useEffect, useState} from 'react';
-import {doFetch} from '../utils/http';
 import {baseUrl} from '../utils/variables';
+import {doFetch} from '../utils/http';
 
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState([]);
-
   useEffect(() => {
     (async () => {
       setMediaArray(await loadMedia());
-    })();
+    })(); // self-invoking function CHECK CHECK
   }, []);
 
   const loadMedia = async () => {
@@ -18,13 +17,12 @@ const useMedia = () => {
         try {
           return await loadSingleMedia(media.file_id);
         } catch (e) {
-          console.log('promiseall');
           return {};
         }
       });
       return Promise.all(kaikkiTiedot);
     } catch (e) {
-      console.log(e.message);
+      console.log('List.js - List: ', e.message);
     }
   };
 
@@ -33,12 +31,50 @@ const useMedia = () => {
       const tiedosto = await doFetch(baseUrl + 'media/' + id);
       return tiedosto;
     } catch (e) {
-      console.log('loadSingleMedia', e.message());
-      throw new Error('loadSingleMedia fail');
+      console.log('loadMedia' + e.message);
     }
   };
 
-  return {mediaArray, loadSingleMedia};
+  return {mediaArray, loadSingleMedia, loadMedia};
 };
 
-export {useMedia};
+const useLogin = () => {
+  const login = async (userCredentials) => {
+    const requestOptions = {
+      method: 'POST',
+      // mode: 'no-cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: userCredentials,
+    };
+    try {
+      const loginResponse = await doFetch(baseUrl + 'login', requestOptions);
+      return loginResponse;
+    } catch (error) {
+      console.log('useLogin ', error);
+    }
+  };
+
+  return {login};
+};
+
+const useUser = () => {
+  const checkToken = async (token) => {
+    const options = {
+      method: 'GET',
+      headers: {
+        'x-access-token': token,
+      },
+    };
+    try {
+      const userInfo = doFetch(baseUrl + 'users/user', options);
+      return userInfo;
+    } catch (error) {
+      console.log('checkToken error ', error);
+    }
+  };
+  return {checkToken};
+};
+
+export {useMedia, useLogin, useUser};
