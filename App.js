@@ -28,7 +28,7 @@ const Flex = () => {
             imageStyle={styles.catLogoImg}
           >
             <View style={styles.box}>
-              <Text style={styles.text}>Koira?</Text>
+              <Text style={styles.text}>Missä koirat? Moottoripyörät?</Text>
             </View>
             <Aperture style={styles.aperture} />
           </ImageBackground>
@@ -68,8 +68,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'pink',
   },
   box: {
-    width: 70,
-    height: 30,
+    width: 'auto',
+    padding: 5,
+    height: 'auto',
     backgroundColor: 'black',
     opacity: 0.5,
     position: 'absolute',
