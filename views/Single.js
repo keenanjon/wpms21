@@ -23,10 +23,6 @@ const Single = ({route}) => {
   );
 };
 
-Single.propTypes = {
-  route: PropTypes.object.isRequired,
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -46,5 +42,9 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
   },
 });
+
+Single.propTypes = {
+  route: PropTypes.object.isRequired,
+};
 
 export default Single;

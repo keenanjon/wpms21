@@ -11,6 +11,7 @@ import {
 import {uploadsUrl} from '../utils/variables';
 
 const ListItem = ({singleMedia, navigation}) => {
+  console.log('singleMedia', singleMedia);
   return (
     <TouchableOpacity
       style={styles.row}

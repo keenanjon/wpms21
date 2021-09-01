@@ -38,17 +38,8 @@ const LoginForm = ({navigation}) => {
         onChangeText={(txt) => handleInputChange('password', txt)}
         secureTextEntry={true}
       />
-      <FormTextInput
-        autoCapitalize="none"
-        placeholder="email"
-        onChangeText={(txt) => handleInputChange('email', txt)}
-      />
-      <FormTextInput
-        autoCapitalize="none"
-        placeholder="full name"
-        onChangeText={(txt) => handleInputChange('full_name', txt)}
-      />
-      <Button title="Register!" onPress={doLogin} />
+
+      <Button title="Login!" onPress={doLogin} />
     </View>
   );
 };

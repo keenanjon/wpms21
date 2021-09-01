@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useUser} from '../hooks/ApiHooks';
-import {RegisterForm} from '../components/RegisterForm';
-import {LoginForm} from '../components/LoginForm';
+import RegisterForm from '../components/RegisterForm';
+import LoginForm from '../components/LoginForm';
 
 const Login = ({navigation}) => {
   const {setIsLoggedIn} = useContext(MainContext);
@@ -48,8 +48,9 @@ const Login = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Text>Login</Text>
-      <RegisterForm navigation={navigation} />
+
       <LoginForm navigation={navigation} />
+      <RegisterForm navigation={navigation} />
     </View>
   );
 };

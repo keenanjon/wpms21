@@ -4,6 +4,7 @@ import {doFetch} from '../utils/http';
 
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState([]);
+
   useEffect(() => {
     (async () => {
       setMediaArray(await loadMedia());
@@ -14,15 +15,11 @@ const useMedia = () => {
     try {
       const mediaIlmanThumbNailia = await doFetch(baseUrl + 'media');
       const kaikkiTiedot = mediaIlmanThumbNailia.map(async (media) => {
-        try {
-          return await loadSingleMedia(media.file_id);
-        } catch (e) {
-          return {};
-        }
+        return await loadSingleMedia(media.file_id);
       });
       return Promise.all(kaikkiTiedot);
     } catch (e) {
-      console.log('List.js - List: ', e.message);
+      console.log('loadMedia', e.message);
     }
   };
 
@@ -31,11 +28,11 @@ const useMedia = () => {
       const tiedosto = await doFetch(baseUrl + 'media/' + id);
       return tiedosto;
     } catch (e) {
-      console.log('loadMedia' + e.message);
+      console.log('loadSingleMedia', e.message);
     }
   };
 
-  return {mediaArray, loadSingleMedia, loadMedia};
+  return {mediaArray, loadMedia, loadSingleMedia};
 };
 
 const useLogin = () => {
@@ -52,7 +49,7 @@ const useLogin = () => {
       const loginResponse = await doFetch(baseUrl + 'login', requestOptions);
       return loginResponse;
     } catch (error) {
-      console.log('useLogin ', error);
+      console.log('login error', error.message);
     }
   };
 
