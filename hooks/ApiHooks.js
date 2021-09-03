@@ -29,6 +29,7 @@ const useMedia = () => {
       return tiedosto;
     } catch (e) {
       console.log('loadSingleMedia', e.message);
+      return {};
     }
   };
 
@@ -52,7 +53,6 @@ const useLogin = () => {
       console.log('login error', error.message);
     }
   };
-
   return {login};
 };
 
