@@ -6,9 +6,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useUser} from '../hooks/ApiHooks';
 import RegisterForm from '../components/RegisterForm';
 import LoginForm from '../components/LoginForm';
+import {baseUrl} from '../utils/variables';
 
 const Login = ({navigation}) => {
-  const {setIsLoggedIn} = useContext(MainContext);
+  // const {setIsLoggedIn} = useContext(MainContext);
+  const {setUser, isLoggedIn, user, setIsLoggedIn} = useContext(MainContext);
   // const {login} = useLogin();
   const {checkToken} = useUser();
   /*
@@ -29,7 +31,7 @@ const Login = ({navigation}) => {
     }
   };
   */
-
+  /*
   const getToken = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
     console.log('logIn asyncstorage token: ', userToken);
@@ -41,18 +43,38 @@ const Login = ({navigation}) => {
       }
     }
   };
+  */
+
+  const getToken = async () => {
+    try {
+      const userToken = await AsyncStorage.getItem('userToken');
+      const response = await fetch(baseUrl + 'users/user', {
+        method: 'GET',
+        headers: {
+          'x-access-token': userToken,
+        },
+      });
+      const json = await response.json();
+      if (response.ok) {
+        setUser(json);
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    } catch (e) {
+      console.log('error on token', e);
+    }
+  };
+
   useEffect(() => {
     getToken();
   }, []);
 
   return (
-    <KeyboardAvoidingView>
-      <View style={styles.container}>
-        <Text>Login</Text>
-
-        <LoginForm navigation={navigation} />
-        <RegisterForm navigation={navigation} />
-      </View>
+    <KeyboardAvoidingView style={styles.container}>
+      <Text>Login</Text>
+      <LoginForm navigation={navigation} />
+      <RegisterForm navigation={navigation} />
     </KeyboardAvoidingView>
   );
 };
