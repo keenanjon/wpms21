@@ -56,6 +56,24 @@ const useLogin = () => {
   return {login};
 };
 
+const register = async (inputs) => {
+  const fetchOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(inputs),
+  };
+  try {
+    const response = await fetch(baseUrl + 'users', fetchOptions);
+    const json = await response.json();
+    return json;
+  } catch (e) {
+    console.log('ApiHooks register', e.message);
+    return false;
+  }
+};
+
 const useUser = () => {
   const checkToken = async (token) => {
     const options = {
@@ -74,4 +92,4 @@ const useUser = () => {
   return {checkToken};
 };
 
-export {useMedia, useLogin, useUser};
+export {useMedia, useLogin, useUser, register};
