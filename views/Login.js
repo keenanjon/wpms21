@@ -1,5 +1,11 @@
 import React, {useEffect, useContext} from 'react';
-import {StyleSheet, View, Text, KeyboardAvoidingView} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -13,37 +19,6 @@ const Login = ({navigation}) => {
   const {setUser, isLoggedIn, user, setIsLoggedIn} = useContext(MainContext);
   // const {login} = useLogin();
   const {checkToken} = useUser();
-  /*
-  const doLogin = async () => {
-    try {
-      const loginInfo = await login(
-        JSON.stringify({
-          username: 'jon',
-          password: 'asukkipasukki2',
-        })
-      );
-      console.log('doLogin response ', loginInfo);
-      await AsyncStorage.setItem('userToken', loginInfo.token);
-      // TODO: Save user info to main context
-      setIsLoggedIn(true);
-    } catch (error) {
-      console.log('doLogin error ', error);
-    }
-  };
-  */
-  /*
-  const getToken = async () => {
-    const userToken = await AsyncStorage.getItem('userToken');
-    console.log('logIn asyncstorage token: ', userToken);
-    if (userToken) {
-      const userInfo = await checkToken(userToken);
-      if (userInfo.user_id) {
-        // TODO: save user into to maincontext
-        setIsLoggedIn(true);
-      }
-    }
-  };
-  */
 
   const getToken = async () => {
     try {
@@ -71,7 +46,10 @@ const Login = ({navigation}) => {
   }, []);
 
   return (
-    <KeyboardAvoidingView style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+    >
       <Text>Login</Text>
       <LoginForm navigation={navigation} />
       <RegisterForm navigation={navigation} />

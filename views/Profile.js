@@ -28,7 +28,7 @@ const Profile = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'grey',
+    backgroundColor: 'yellow',
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 40,
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
   },
   text: {
-    color: 'white',
+    color: 'grey',
   },
 });
 
