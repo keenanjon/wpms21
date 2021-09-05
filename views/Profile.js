@@ -15,10 +15,11 @@ const Profile = (props) => {
   };
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>Profile</Text>
-      <Text style={styles.text}>{user.username}</Text>
-      <Text style={styles.text}>{user.full_name}</Text>
-      <Text style={styles.text}>{user.email}</Text>
+      <Text style={styles.textH}>Profile:</Text>
+      <Text style={styles.text}>Username: {user.username}</Text>
+      <Text style={styles.text}>User ID: {user.user_id}</Text>
+      <Text style={styles.text}>Full name: {user.full_name}</Text>
+      <Text style={styles.text}>Email: {user.email}</Text>
       <Button title={'Logout'} onPress={logout} />
     </SafeAreaView>
   );
@@ -27,13 +28,17 @@ const Profile = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'pink',
+    backgroundColor: 'grey',
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 40,
   },
-  text: {
+  textH: {
     color: 'red',
+    fontSize: 17,
+  },
+  text: {
+    color: 'white',
   },
 });
 
