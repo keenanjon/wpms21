@@ -50,7 +50,7 @@ const Login = ({navigation}) => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <Text>Login</Text>
+      <Text>Login you asshole</Text>
       <LoginForm navigation={navigation} />
       <RegisterForm navigation={navigation} />
     </KeyboardAvoidingView>
@@ -61,8 +61,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
 

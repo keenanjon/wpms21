@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
-import {View, Button, Alert} from 'react-native';
+import {View, Alert} from 'react-native';
+import {Button} from 'react-native-elements';
 import FormTextInput from './FormTextInput';
 import useSignUpForm from '../hooks/RegisterHooks';
 import {MainContext} from '../contexts/MainContext';
@@ -72,7 +73,7 @@ const RegisterForm = () => {
         placeholder="full name"
         onChangeText={(txt) => handleInputChange('full_name', txt)}
       />
-      <Button title="Register!" onPress={doRegister} />
+      <Button title="Register!" onPress={doRegister} raised />
     </View>
   );
 };

@@ -92,4 +92,17 @@ const useUser = () => {
   return {checkToken};
 };
 
-export {useMedia, useLogin, useUser, register};
+const useTag = () => {
+  const getFilesByTag = async (tag) => {
+    try {
+      const tiedosto = await doFetch(baseUrl + 'tags/' + tag);
+      return tiedosto;
+    } catch (e) {
+      console.log('getFilesBytag', e.message);
+      return {};
+    }
+  };
+  return {getFilesByTag};
+};
+
+export {useMedia, useLogin, useUser, register, useTag};

@@ -1,5 +1,6 @@
 import React, {useContext} from 'react';
-import {Button, View} from 'react-native';
+import {View} from 'react-native';
+import {Button} from 'react-native-elements';
 import {useLogin} from '../hooks/ApiHooks';
 import PropTypes from 'prop-types';
 import FormTextInput from './FormTextInput';
@@ -38,7 +39,7 @@ const LoginForm = ({navigation}) => {
         secureTextEntry={true}
       />
 
-      <Button title="Login!" onPress={doLogin} />
+      <Button title="Login!" onPress={doLogin} raised />
     </View>
   );
 };

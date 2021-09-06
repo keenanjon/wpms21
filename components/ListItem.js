@@ -2,36 +2,51 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   StyleSheet,
-  Text,
   View,
   TouchableOpacity,
-  Image,
   Platform,
+  ActivityIndicator,
 } from 'react-native';
 import {uploadsUrl} from '../utils/variables';
+import {
+  Image,
+  Button,
+  Text,
+  Divider,
+  Icon,
+  ListItem as RNEListItem,
+} from 'react-native-elements';
 
 const ListItem = ({singleMedia, navigation}) => {
   console.log('singleMedia', singleMedia);
   return (
-    <TouchableOpacity
-      style={styles.row}
-      onPress={() => {
-        navigation.navigate('Single', singleMedia);
-      }}
-    >
-      <View style={styles.imagebox}>
-        <Image
-          style={styles.image}
-          source={{
-            uri: uploadsUrl + singleMedia.thumbnails?.w160,
+    <View>
+      <RNEListItem>
+        <View>
+          <Image
+            style={styles.image}
+            PlaceholderContent={<ActivityIndicator />}
+            source={{
+              uri: uploadsUrl + singleMedia.thumbnails?.w160,
+            }}
+          />
+        </View>
+        <View style={styles.textbox}>
+          <Text h4>{singleMedia.title}</Text>
+          <Text>{singleMedia.description}</Text>
+        </View>
+
+        <Button
+          title="View"
+          onPress={() => {
+            navigation.navigate('Single', singleMedia);
           }}
-        />
-      </View>
-      <View style={styles.textbox}>
-        <Text style={styles.listtitle}>{singleMedia.title}</Text>
-        <Text>{singleMedia.description}</Text>
-      </View>
-    </TouchableOpacity>
+          raised
+        ></Button>
+      </RNEListItem>
+      <Icon name="rowing" />
+      <Divider />
+    </View>
   );
 };
 const styles = StyleSheet.create({
@@ -62,11 +77,8 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     borderRadius: 3,
-  },
-  listtitle: {
-    fontWeight: 'bold',
-    fontSize: 20,
-    paddingBottom: 15,
+    width: 50,
+    height: 50,
   },
 });
 
