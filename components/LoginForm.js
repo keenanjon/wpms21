@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginForm = ({navigation}) => {
   const {inputs, handleInputChange} = useLoginForm();
-  const {setUser, isLoggedIn, user, setIsLoggedIn} = useContext(MainContext);
+  const {isLoggedIn, setIsLoggedIn, user, setUser} = useContext(MainContext);
   const {login} = useLogin();
 
   const doLogin = async () => {
@@ -17,7 +17,6 @@ const LoginForm = ({navigation}) => {
       const loginInfo = await login(JSON.stringify(inputs));
       console.log('doLogin response ', loginInfo);
       await AsyncStorage.setItem('userToken', loginInfo.token);
-      // TODO: Save user info to main context
       setUser(loginInfo.user);
       setIsLoggedIn(true);
     } catch (error) {
