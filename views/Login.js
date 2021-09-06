@@ -1,11 +1,5 @@
 import React, {useEffect, useContext} from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native';
+import {StyleSheet, KeyboardAvoidingView, Platform} from 'react-native';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -13,10 +7,11 @@ import {useUser} from '../hooks/ApiHooks';
 import RegisterForm from '../components/RegisterForm';
 import LoginForm from '../components/LoginForm';
 import {baseUrl} from '../utils/variables';
+import {Text} from 'react-native-elements';
 
 const Login = ({navigation}) => {
   // const {setIsLoggedIn} = useContext(MainContext);
-  const {setUser, isLoggedIn, user, setIsLoggedIn} = useContext(MainContext);
+  const {setUser, setIsLoggedIn} = useContext(MainContext);
   // const {login} = useLogin();
   const {checkToken} = useUser();
 
@@ -50,7 +45,8 @@ const Login = ({navigation}) => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <Text>Login you asshole</Text>
+      <Text h4></Text>
+
       <LoginForm navigation={navigation} />
       <RegisterForm navigation={navigation} />
     </KeyboardAvoidingView>
