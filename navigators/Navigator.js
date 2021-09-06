@@ -9,7 +9,6 @@ import Single from '../views/Single';
 import Login from '../views/Login';
 import {MainContext} from '../contexts/MainContext';
 import {useContext} from 'react';
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {Icon} from 'react-native-elements';
 
 const Tab = createBottomTabNavigator();
@@ -73,18 +72,5 @@ const Navigator = () => {
     </NavigationContainer>
   );
 };
-/*
-const Navigator = () => {
-  return (
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Profile" component={Profile} />
-        <Tab.Screen name="Single" component={Single} />
-      </Tab.Navigator>
-    </NavigationContainer>
-  );
-};
-*/
 
 export default Navigator;

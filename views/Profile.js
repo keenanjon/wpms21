@@ -56,7 +56,7 @@ const Profile = (props) => {
 };
 
 const styles = StyleSheet.create({
-  image: {width: '100%', height: undefined, aspectRatio: 1},
+  image: {width: '100%', height: undefined, borderRadius: 250, aspectRatio: 1},
 });
 
 Profile.propTypes = {
