@@ -1,4 +1,4 @@
-import React, {useEffect, useContext} from 'react';
+import React, {useEffect, useContext, useState} from 'react';
 import {StyleSheet, KeyboardAvoidingView, Platform} from 'react-native';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
@@ -7,13 +7,14 @@ import {useUser} from '../hooks/ApiHooks';
 import RegisterForm from '../components/RegisterForm';
 import LoginForm from '../components/LoginForm';
 import {baseUrl} from '../utils/variables';
-import {Text} from 'react-native-elements';
+import {Button, Text} from 'react-native-elements';
 
 const Login = ({navigation}) => {
   // const {setIsLoggedIn} = useContext(MainContext);
   const {setUser, setIsLoggedIn} = useContext(MainContext);
   // const {login} = useLogin();
   const {checkToken} = useUser();
+  const [registerFormToggle, setRegisterFormToggle] = useState(false);
 
   const getToken = async () => {
     try {
@@ -47,8 +48,18 @@ const Login = ({navigation}) => {
     >
       <Text h4></Text>
 
-      <LoginForm navigation={navigation} />
-      <RegisterForm navigation={navigation} />
+      {registerFormToggle ? (
+        <RegisterForm navigation={navigation} />
+      ) : (
+        <LoginForm navigation={navigation} />
+      )}
+      {/* To do link button*/}
+      <Button
+        title={registerFormToggle ? 'Login here' : 'Register here'}
+        onPress={() => {
+          setRegisterFormToggle(!registerFormToggle);
+        }}
+      ></Button>
     </KeyboardAvoidingView>
   );
 };

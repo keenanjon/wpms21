@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {View} from 'react-native';
-import {Button} from 'react-native-elements';
+import {Button, Text} from 'react-native-elements';
 import {useLogin} from '../hooks/ApiHooks';
 import PropTypes from 'prop-types';
 import FormTextInput from './FormTextInput';
@@ -27,6 +27,8 @@ const LoginForm = ({navigation}) => {
 
   return (
     <View>
+      <Text h4>Login:</Text>
+      <Text h4></Text>
       <FormTextInput
         autoCapitalize="none"
         placeholder="username"

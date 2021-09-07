@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import {View, Alert} from 'react-native';
-import {Button} from 'react-native-elements';
+import {Button, Text} from 'react-native-elements';
 import FormTextInput from './FormTextInput';
 import useSignUpForm from '../hooks/RegisterHooks';
 import {MainContext} from '../contexts/MainContext';
@@ -20,6 +20,7 @@ const RegisterForm = () => {
   };
   */
   const {setUser, isLoggedIn, user, setIsLoggedIn} = useContext(MainContext);
+  const {inputs, errors, handleInputChange, checkUsername} = useSignUpForm();
 
   // lisäsin itse
   const {login} = useLogin();
@@ -48,14 +49,19 @@ const RegisterForm = () => {
     }
   };
 
-  const {inputs, handleInputChange} = useSignUpForm();
-
   return (
     <View>
+      <Text h4>Register:</Text>
+      <Text h4></Text>
       <FormTextInput
         autoCapitalize="none"
         placeholder="username"
         onChangeText={(txt) => handleInputChange('username', txt)}
+        onEndEditing={(event) => {
+          console.log('onendediting value', event.nativeEvent.text);
+          checkUsername(event.nativeEvent.text);
+        }}
+        errorMessage={errors.username}
       />
       <FormTextInput
         autoCapitalize="none"
