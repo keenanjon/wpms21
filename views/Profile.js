@@ -37,15 +37,15 @@ const Profile = (props) => {
         PlaceholderContent={<ActivityIndicator />}
       />
       <ListItem>
-        <Avatar icon={{name: 'email', color: 'black'}} />
+        <Avatar icon={{name: 'email', color: 'red'}} />
         <Text>{user.email}</Text>
       </ListItem>
       <ListItem>
-        <Avatar icon={{name: 'user', type: 'font-awesome', color: 'black'}} />
+        <Avatar icon={{name: 'user', type: 'font-awesome', color: 'red'}} />
         <Text>{user.full_name}</Text>
       </ListItem>
       <ListItem bottomDivider onPress={logout}>
-        <Avatar icon={{name: 'logout', color: 'black'}} />
+        <Avatar icon={{name: 'logout', color: 'red'}} />
         <ListItem.Content>
           <ListItem.Title>Logout</ListItem.Title>
         </ListItem.Content>
