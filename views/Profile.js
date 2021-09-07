@@ -1,9 +1,9 @@
 import React, {useContext, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-import {StyleSheet, Text, ActivityIndicator} from 'react-native';
+import {StyleSheet, ActivityIndicator, ScrollView} from 'react-native';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Card, ListItem} from 'react-native-elements';
+import {Card, ListItem, Text} from 'react-native-elements';
 import {useTag} from '../hooks/ApiHooks';
 import {uploadsUrl} from '../utils/variables';
 import {Avatar} from 'react-native-elements/dist/avatar/Avatar';
@@ -27,31 +27,33 @@ const Profile = (props) => {
     setIsLoggedIn(false);
   };
   return (
-    <Card>
-      <Card.Title>
-        <Text h1>{user.username}</Text>
-      </Card.Title>
-      <Card.Image
-        source={{uri: avatar}}
-        style={styles.image}
-        PlaceholderContent={<ActivityIndicator />}
-      />
-      <ListItem>
-        <Avatar icon={{name: 'email', color: 'red'}} />
-        <Text>{user.email}</Text>
-      </ListItem>
-      <ListItem>
-        <Avatar icon={{name: 'user', type: 'font-awesome', color: 'red'}} />
-        <Text>{user.full_name}</Text>
-      </ListItem>
-      <ListItem bottomDivider onPress={logout}>
-        <Avatar icon={{name: 'logout', color: 'red'}} />
-        <ListItem.Content>
-          <ListItem.Title>Logout</ListItem.Title>
-        </ListItem.Content>
-        <ListItem.Chevron />
-      </ListItem>
-    </Card>
+    <ScrollView>
+      <Card>
+        <Card.Title>
+          <Text h3>{user.username}</Text>
+        </Card.Title>
+        <Card.Image
+          source={{uri: avatar}}
+          style={styles.image}
+          PlaceholderContent={<ActivityIndicator />}
+        />
+        <ListItem>
+          <Avatar icon={{name: 'email', color: 'red'}} />
+          <Text>{user.email}</Text>
+        </ListItem>
+        <ListItem>
+          <Avatar icon={{name: 'user', type: 'font-awesome', color: 'red'}} />
+          <Text>{user.full_name}</Text>
+        </ListItem>
+        <ListItem bottomDivider onPress={logout}>
+          <Avatar icon={{name: 'logout', color: 'red'}} />
+          <ListItem.Content>
+            <ListItem.Title>Logout</ListItem.Title>
+          </ListItem.Content>
+          <ListItem.Chevron />
+        </ListItem>
+      </Card>
+    </ScrollView>
   );
 };
 
