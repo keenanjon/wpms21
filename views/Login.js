@@ -55,7 +55,12 @@ const Login = ({navigation}) => {
       )}
       {/* To do link button*/}
       <Button
-        title={registerFormToggle ? 'Login here' : 'Register here'}
+        type="outline"
+        title={
+          registerFormToggle
+            ? 'Already registered? Login here...'
+            : 'Register here =>'
+        }
         onPress={() => {
           setRegisterFormToggle(!registerFormToggle);
         }}

@@ -20,7 +20,8 @@ const RegisterForm = () => {
   };
   */
   const {setUser, isLoggedIn, user, setIsLoggedIn} = useContext(MainContext);
-  const {inputs, errors, handleInputChange, checkUsername} = useSignUpForm();
+  const {inputs, errors, handleInputChange, handleOnEndEditing, checkUsername} =
+    useSignUpForm();
 
   // lisäsin itse
   const {login} = useLogin();
@@ -60,6 +61,7 @@ const RegisterForm = () => {
         onEndEditing={(event) => {
           console.log('onendediting value', event.nativeEvent.text);
           checkUsername(event.nativeEvent.text);
+          handleOnEndEditing('username', event.nativeEvent.text);
         }}
         errorMessage={errors.username}
       />
@@ -68,18 +70,50 @@ const RegisterForm = () => {
         placeholder="password"
         onChangeText={(txt) => handleInputChange('password', txt)}
         secureTextEntry={true}
+        onEndEditing={(event) => {
+          handleOnEndEditing('password', event.nativeEvent.text);
+        }}
+        errorMessage={errors.password}
+      />
+      <FormTextInput
+        autoCapitalize="none"
+        placeholder="password again"
+        onChangeText={(txt) => handleInputChange('confirmPassword', txt)}
+        secureTextEntry={true}
+        onEndEditing={(event) => {
+          handleOnEndEditing('confirmPassword', event.nativeEvent.text);
+        }}
+        errorMessage={errors.confirmPassword}
       />
       <FormTextInput
         autoCapitalize="none"
         placeholder="email"
         onChangeText={(txt) => handleInputChange('email', txt)}
+        onEndEditing={(event) => {
+          handleOnEndEditing('email', event.nativeEvent.text);
+        }}
+        errorMessage={errors.email}
       />
       <FormTextInput
         autoCapitalize="none"
         placeholder="full name"
         onChangeText={(txt) => handleInputChange('full_name', txt)}
+        onEndEditing={(event) => {
+          handleOnEndEditing('full_name', event.nativeEvent.text);
+        }}
+        errorMessage={errors.full_name}
       />
-      <Button title="Register!" onPress={doRegister} raised />
+      <Button
+        title="Register!"
+        onPress={doRegister}
+        raised
+        disabled={
+          errors.username ||
+          errors.password ||
+          errors.confirmPassword ||
+          errors.email
+        }
+      />
     </View>
   );
 };
