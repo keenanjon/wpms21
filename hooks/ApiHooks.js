@@ -89,6 +89,7 @@ const useUser = () => {
       console.log('checkToken error ', error);
     }
   };
+
   const checkUsernameAvailable = async (username) => {
     try {
       const userNameInfo = await doFetch(
