@@ -1,5 +1,11 @@
 import React, {useEffect, useContext} from 'react';
-import {StyleSheet, KeyboardAvoidingView, Platform} from 'react-native';
+import {
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+  ImageBackground,
+  ScrollView,
+} from 'react-native';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -7,7 +13,7 @@ import {useUser} from '../hooks/ApiHooks';
 import RegisterForm from '../components/RegisterForm';
 import LoginForm from '../components/LoginForm';
 import {baseUrl} from '../utils/variables';
-import {Text} from 'react-native-elements';
+import {Card} from 'react-native-elements';
 
 const Login = ({navigation}) => {
   // const {setIsLoggedIn} = useContext(MainContext);
@@ -45,10 +51,20 @@ const Login = ({navigation}) => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <Text h4></Text>
-
-      <LoginForm navigation={navigation} />
-      <RegisterForm navigation={navigation} />
+      <ImageBackground
+        source={require('../assets/splash.png')}
+        style={styles.image}
+      >
+        <ScrollView>
+          <Card>
+            <Card.Title h4>Login</Card.Title>
+            <LoginForm navigation={navigation} />
+            <Card.Divider />
+            <Card.Title h4>Register</Card.Title>
+            <RegisterForm navigation={navigation} />
+          </Card>
+        </ScrollView>
+      </ImageBackground>
     </KeyboardAvoidingView>
   );
 };
@@ -57,6 +73,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  image: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
   },
 });
 
