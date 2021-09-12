@@ -7,7 +7,8 @@ import {useUser} from '../hooks/ApiHooks';
 import RegisterForm from '../components/RegisterForm';
 import LoginForm from '../components/LoginForm';
 import {baseUrl} from '../utils/variables';
-import {Button, Text} from 'react-native-elements';
+import {Card, ListItem, Text} from 'react-native-elements';
+import {ImageBackground} from 'react-native';
 
 const Login = ({navigation}) => {
   // const {setIsLoggedIn} = useContext(MainContext);
@@ -46,25 +47,38 @@ const Login = ({navigation}) => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <Text h4></Text>
+      <ImageBackground
+        source={require('../assets/splash.png')}
+        style={styles.image}
+      >
+        {registerFormToggle ? (
+          <Card>
+            <Card.Divider />
+            <Card.Title h4>Register</Card.Title>
+            <RegisterForm navigation={navigation} />
+          </Card>
+        ) : (
+          <Card>
+            <Card.Title h4>Login</Card.Title>
+            <LoginForm navigation={navigation} />
+          </Card>
+        )}
 
-      {registerFormToggle ? (
-        <RegisterForm navigation={navigation} />
-      ) : (
-        <LoginForm navigation={navigation} />
-      )}
-      {/* To do link button*/}
-      <Button
-        type="outline"
-        title={
-          registerFormToggle
-            ? 'Already registered? Login here...'
-            : 'Register here =>'
-        }
-        onPress={() => {
-          setRegisterFormToggle(!registerFormToggle);
-        }}
-      ></Button>
+        <ListItem
+          onPress={() => {
+            setRegisterFormToggle(!registerFormToggle);
+          }}
+        >
+          <ListItem.Content>
+            <Text style={styles.text}>
+              {registerFormToggle
+                ? 'Already registered? Login here'
+                : 'No account? Register here.'}
+            </Text>
+          </ListItem.Content>
+          <ListItem.Chevron />
+        </ListItem>
+      </ImageBackground>
     </KeyboardAvoidingView>
   );
 };
@@ -73,6 +87,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  image: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
   },
 });
 

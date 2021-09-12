@@ -5,7 +5,7 @@ import {Button, Text} from 'react-native-elements';
 import FormTextInput from './FormTextInput';
 import useSignUpForm from '../hooks/RegisterHooks';
 import {MainContext} from '../contexts/MainContext';
-import {useLogin, login, register} from '../hooks/ApiHooks';
+import {useLogin, register} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const RegisterForm = () => {
@@ -19,7 +19,7 @@ const RegisterForm = () => {
     }
   };
   */
-  const {setUser, isLoggedIn, user, setIsLoggedIn} = useContext(MainContext);
+  const {setUser, user, setIsLoggedIn} = useContext(MainContext);
   const {inputs, errors, handleInputChange, handleOnEndEditing, checkUsername} =
     useSignUpForm();
 
