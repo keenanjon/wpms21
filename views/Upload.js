@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {View, Platform} from 'react-native';
+import {View, Platform, ActivityIndicator} from 'react-native';
 import UploadForm from '../components/UploadForm';
 import {Button, Image} from 'react-native-elements';
 import useUploadForm from '../hooks/UploadHooks';
@@ -9,11 +9,11 @@ import * as ImagePicker from 'expo-image-picker';
 import {useMedia} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Upload = (props) => {
-  const [image, setImage] = useState(require('../assets/icon.png'));
+const Upload = ({navigation}) => {
+  const [image, setImage] = useState(require('../assets/icon3.png'));
   const [type, setType] = useState('');
   const {inputs, handleInputChange} = useUploadForm();
-  const {uploadMedia} = useMedia();
+  const {uploadMedia, loading} = useMedia();
 
   const doUpload = async () => {
     const filename = image.uri.split('/').pop();
@@ -22,8 +22,16 @@ const Upload = (props) => {
     formData.append('title', inputs.title);
     formData.append('description', inputs.description);
     // console.log('doUpload', formData);
-    const userToken = await AsyncStorage.getItem('userToken');
-    uploadMedia(formData, userToken);
+    try {
+      const userToken = await AsyncStorage.getItem('userToken');
+      const result = await uploadMedia(formData, userToken);
+      console.log('doUpload', result);
+      if (result) {
+        navigation.navigate('Home');
+      }
+    } catch (e) {
+      console.log('doUpload error', e.message);
+    }
   };
 
   useEffect(() => {
@@ -62,11 +70,15 @@ const Upload = (props) => {
         title="Upload"
         handleSubmit={doUpload}
         handleInputChange={handleInputChange}
+        loading={loading}
       />
+      {loading && <ActivityIndicator />}
     </View>
   );
 };
 
-Upload.propTypes = {};
+Upload.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
 
 export default Upload;
