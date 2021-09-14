@@ -7,11 +7,11 @@ import ListItem from './ListItem';
 
 const List = ({navigation}) => {
   const {mediaArray} = useMedia();
-  console.log('List: mediaArray', mediaArray);
+  // console.log('List: mediaArray', mediaArray);
 
   return (
     <FlatList
-      data={mediaArray}
+      data={mediaArray.reverse()}
       renderItem={({item}) => (
         <ListItem singleMedia={item} navigation={navigation} />
       )}

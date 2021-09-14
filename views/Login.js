@@ -18,23 +18,18 @@ const Login = ({navigation}) => {
   const [registerFormToggle, setRegisterFormToggle] = useState(false);
 
   const getToken = async () => {
-    try {
-      const userToken = await AsyncStorage.getItem('userToken');
-      const response = await fetch(baseUrl + 'users/user', {
-        method: 'GET',
-        headers: {
-          'x-access-token': userToken,
-        },
-      });
-      const json = await response.json();
-      if (response.ok) {
-        setUser(json);
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
+    const userToken = await AsyncStorage.getItem('userToken');
+    console.log('logIn asyncstorage token:', userToken);
+    if (userToken) {
+      try {
+        const userInfo = await checkToken(userToken);
+        if (userInfo.user_id) {
+          setUser(userInfo);
+          setIsLoggedIn(true);
+        }
+      } catch (e) {
+        console.log('getToken', e.message);
       }
-    } catch (e) {
-      console.log('error on token', e);
     }
   };
 

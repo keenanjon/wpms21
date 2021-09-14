@@ -18,7 +18,7 @@ import {
 } from 'react-native-elements';
 
 const ListItem = ({singleMedia, navigation}) => {
-  console.log('singleMedia', singleMedia);
+  // console.log('singleMedia', singleMedia);
   return (
     <View>
       <RNEListItem>
