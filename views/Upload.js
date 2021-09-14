@@ -1,19 +1,21 @@
 /* eslint-disable no-undef */
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {View, Platform, ActivityIndicator} from 'react-native';
+import {View, Platform, ActivityIndicator, Alert} from 'react-native';
 import UploadForm from '../components/UploadForm';
 import {Button, Image} from 'react-native-elements';
 import useUploadForm from '../hooks/UploadHooks';
 import * as ImagePicker from 'expo-image-picker';
-import {useMedia} from '../hooks/ApiHooks';
+import {useMedia, useTag} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {appID} from '../utils/variables';
 
 const Upload = ({navigation}) => {
   const [image, setImage] = useState(require('../assets/icon3.png'));
   const [type, setType] = useState('');
   const {inputs, handleInputChange} = useUploadForm();
   const {uploadMedia, loading} = useMedia();
+  const {addTag} = useTag();
 
   const doUpload = async () => {
     const filename = image.uri.split('/').pop();
@@ -26,7 +28,10 @@ const Upload = ({navigation}) => {
       const userToken = await AsyncStorage.getItem('userToken');
       const result = await uploadMedia(formData, userToken);
       console.log('doUpload', result);
-      if (result) {
+      const tagResult = await addTag(result.file_id, appID, userToken);
+      console.log('doUpload', tagResult);
+      if (tagResult.message) {
+        Alert.alert(tagResult.message);
         navigation.navigate('Home');
       }
     } catch (e) {

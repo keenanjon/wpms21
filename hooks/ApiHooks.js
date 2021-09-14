@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {baseUrl} from '../utils/variables';
+import {appID, baseUrl} from '../utils/variables';
 import {doFetch} from '../utils/http';
 import axios from 'axios';
 
@@ -16,7 +16,7 @@ const useMedia = () => {
 
   const loadMedia = async () => {
     try {
-      const mediaIlmanThumbNailia = await doFetch(baseUrl + 'media');
+      const mediaIlmanThumbNailia = await doFetch(baseUrl + 'tags/' + appID);
       const kaikkiTiedot = mediaIlmanThumbNailia.map(async (media) => {
         return await loadSingleMedia(media.file_id);
       });
@@ -45,9 +45,10 @@ const useMedia = () => {
         data: formData,
       };
       const result = await axios(baseUrl + 'media/', options);
-      console.log('axios', result.data);
+      // console.log('axios', result.data);
       if (result.data) {
         setUpdate(update + 1);
+        console.log('update', update);
         return result.data;
       }
     } catch (e) {
@@ -141,11 +142,32 @@ const useTag = () => {
       const tiedosto = await doFetch(baseUrl + 'tags/' + tag);
       return tiedosto;
     } catch (e) {
-      console.log('getFilesBytag', e.message);
+      console.log('getFilesByTag', e.message);
       return {};
     }
   };
-  return {getFilesByTag};
+
+  // eslint-disable-next-line camelcase
+  const addTag = async (file_id, tag, token) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'x-access-token': token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({file_id, tag}),
+    };
+    console.log('optiot', options);
+    try {
+      const tagInfo = await doFetch(baseUrl + 'tags', options);
+      return tagInfo;
+    } catch (error) {
+      // console.log('addTag error', error);
+      throw new Error(error.message);
+    }
+  };
+
+  return {getFilesByTag, addTag};
 };
 
 export {useMedia, useLogin, useUser, register, useTag};
