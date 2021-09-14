@@ -12,13 +12,18 @@ import {appID} from '../utils/variables';
 const Upload = ({navigation}) => {
   // eslint-disable-next-line no-undef
   const [image, setImage] = useState(require('../assets/icon3.png'));
-  const [type, setType] = useState('');
+  // const [type, setType] = useState('');
   const {inputs, handleInputChange} = useUploadForm();
   const {uploadMedia, loading} = useMedia();
   const {addTag} = useTag();
 
   const doUpload = async () => {
     const filename = image.uri.split('/').pop();
+
+    const match = /\.(\w+)$/.exec(filename);
+    let type = match ? `image/${match[1]}` : `image`;
+    if (type === 'image/jpg') type = 'image/jpeg';
+
     const formData = new FormData();
     formData.append('file', {uri: image.uri, name: filename, type});
     formData.append('title', inputs.title);
@@ -63,7 +68,7 @@ const Upload = ({navigation}) => {
 
     if (!result.cancelled) {
       setImage({uri: result.uri});
-      setType(result.type);
+      // setType(result.type);
     }
   };
 
