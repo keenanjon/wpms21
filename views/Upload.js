@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {View, Platform, ActivityIndicator, Alert} from 'react-native';
@@ -11,6 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {appID} from '../utils/variables';
 
 const Upload = ({navigation}) => {
+  // eslint-disable-next-line no-undef
   const [image, setImage] = useState(require('../assets/icon3.png'));
   const [type, setType] = useState('');
   const {inputs, handleInputChange} = useUploadForm();
@@ -35,7 +35,7 @@ const Upload = ({navigation}) => {
         navigation.navigate('Home');
       }
     } catch (e) {
-      console.log('doUpload error', e.message);
+      console.log('doUpload ', e.message);
     }
   };
 
@@ -70,7 +70,7 @@ const Upload = ({navigation}) => {
   return (
     <View>
       <Image source={image} style={{width: '100%', height: 200}} />
-      <Button title="Select media" onPress={pickImage} />
+      <Button loading={loading} title="Select media" onPress={pickImage} />
       <UploadForm
         title="Upload"
         handleSubmit={doUpload}
