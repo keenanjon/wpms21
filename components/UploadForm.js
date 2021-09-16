@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Button, Input} from 'react-native-elements';
-import useUploadForm from '../hooks/UploadHooks';
+// import useUploadForm from '../hooks/UploadHooks';
 
 const UploadForm = ({title, handleSubmit, handleInputChange, loading}) => {
   return (

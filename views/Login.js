@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useUser} from '../hooks/ApiHooks';
 import RegisterForm from '../components/RegisterForm';
 import LoginForm from '../components/LoginForm';
-import {baseUrl} from '../utils/variables';
+// import {baseUrl} from '../utils/variables';
 import {Card, ListItem, Text} from 'react-native-elements';
 import {ImageBackground} from 'react-native';
 
@@ -43,6 +43,7 @@ const Login = ({navigation}) => {
       style={styles.container}
     >
       <ImageBackground
+        // eslint-disable-next-line no-undef
         source={require('../assets/splash.png')}
         style={styles.image}
       >
