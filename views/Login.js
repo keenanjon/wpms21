@@ -11,6 +11,7 @@ import {Card, ListItem, Text} from 'react-native-elements';
 import {ImageBackground} from 'react-native';
 
 const Login = ({navigation}) => {
+  // login works again!
   // const {setIsLoggedIn} = useContext(MainContext);
   const {setUser, setIsLoggedIn} = useContext(MainContext);
   // const {login} = useLogin();
