@@ -1,4 +1,5 @@
-import React, {useEffect, useContext, useState} from 'react';
+/* eslint-disable no-undef */
+import React, {useContext, useEffect, useState} from 'react';
 import {StyleSheet, KeyboardAvoidingView, Platform} from 'react-native';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
@@ -6,17 +7,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useUser} from '../hooks/ApiHooks';
 import RegisterForm from '../components/RegisterForm';
 import LoginForm from '../components/LoginForm';
-// import {baseUrl} from '../utils/variables';
-import {Card, ListItem, Text} from 'react-native-elements';
 import {ImageBackground} from 'react-native';
+import {Card, ListItem, Text} from 'react-native-elements';
 
 const Login = ({navigation}) => {
-  // login works again!
-  // const {setIsLoggedIn} = useContext(MainContext);
-  const {setUser, setIsLoggedIn} = useContext(MainContext);
-  // const {login} = useLogin();
+  const {setIsLoggedIn, setUser} = useContext(MainContext);
   const {checkToken} = useUser();
   const [registerFormToggle, setRegisterFormToggle] = useState(false);
+  // console.log('Login isLoggedIn', isLoggedIn);
 
   const getToken = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
@@ -44,7 +42,6 @@ const Login = ({navigation}) => {
       style={styles.container}
     >
       <ImageBackground
-        // eslint-disable-next-line no-undef
         source={require('../assets/splash.png')}
         style={styles.image}
       >
@@ -60,7 +57,7 @@ const Login = ({navigation}) => {
             <LoginForm navigation={navigation} />
           </Card>
         )}
-
+        {/* TODO: add link/button & event handler to change state: setRegformtoggle(!regformtoggle);  */}
         <ListItem
           onPress={() => {
             setRegisterFormToggle(!registerFormToggle);

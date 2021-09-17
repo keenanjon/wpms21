@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Button, Input} from 'react-native-elements';
+import RegisterForm from './RegisterForm';
 // import useUploadForm from '../hooks/UploadHooks';
 
 const UploadForm = ({title, handleSubmit, handleInputChange, loading}) => {
@@ -18,6 +19,7 @@ const UploadForm = ({title, handleSubmit, handleInputChange, loading}) => {
       />
 
       <Button raised title={title} onPress={handleSubmit} loading={loading} />
+      <Button title="Reset form" />
     </>
   );
 };
