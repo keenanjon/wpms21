@@ -1,5 +1,4 @@
 import {useState} from 'react';
-import {useUser} from './ApiHooks';
 import {validator} from '../utils/validator';
 
 const constraints = {
@@ -7,14 +6,7 @@ const constraints = {
     presence: true,
     length: {
       minimum: 3,
-      message: 'minimum 3 chars',
-    },
-  },
-  description: {
-    presence: true,
-    length: {
-      minimum: 6,
-      message: 'must be at least 6 characters',
+      message: 'must be at least 3 chars',
     },
   },
 };
@@ -27,6 +19,16 @@ const useUploadForm = (callback) => {
 
   const [errors, setErrors] = useState({});
 
+  const handleReset = () => {
+    setInputs((inputs) => {
+      return {
+        ...inputs,
+        title: '',
+        description: '',
+      };
+    });
+  };
+
   const handleInputChange = (name, text) => {
     // console.log(name, text);
     setInputs((inputs) => {
@@ -38,11 +40,7 @@ const useUploadForm = (callback) => {
   };
 
   const handleOnEndEditing = (name, text) => {
-    // 1. validate input value
-    // const error = null;
-
     const error = validator(name, text, constraints);
-    // 2. update error state
     setErrors((errors) => {
       return {
         ...errors,
@@ -53,8 +51,10 @@ const useUploadForm = (callback) => {
 
   return {
     handleInputChange,
-    handleOnEndEditing,
+    handleReset,
     inputs,
+    setInputs,
+    handleOnEndEditing,
     errors,
   };
 };
