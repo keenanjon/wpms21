@@ -37,7 +37,7 @@ const UploadForm = ({
         title={title}
         onPress={handleSubmit}
         loading={loading}
-        disabled={errors.title || image.uri === undefined}
+        disabled={errors.title !== null || image.uri === undefined}
       />
     </>
   );
