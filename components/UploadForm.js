@@ -37,7 +37,11 @@ const UploadForm = ({
         title={title}
         onPress={handleSubmit}
         loading={loading}
-        disabled={errors.title !== null || image.uri === undefined}
+        disabled={
+          errors.title !== null ||
+          image.uri === undefined ||
+          image.uri === '../assets/icon3.png'
+        }
       />
     </>
   );
