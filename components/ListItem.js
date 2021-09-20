@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {uploadsUrl} from '../utils/variables';
 import {Avatar, Button, ListItem as RNEListItem} from 'react-native-elements';
 import {useMedia} from '../hooks/ApiHooks';
+import {StyleSheet, View} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MainContext} from '../contexts/MainContext';
 
@@ -29,6 +30,8 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
         {showButtons && (
           <>
             <Button
+              type="clear"
+              icon
               title="Modify"
               onPress={() => {
                 navigation.navigate('Modify', {singleMedia, navigation});
@@ -36,6 +39,8 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
             ></Button>
             <Button
               title="Delete"
+              type="clear"
+              icon
               onPress={async () => {
                 try {
                   const token = await AsyncStorage.getItem('userToken');
@@ -59,6 +64,18 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
     </RNEListItem>
   );
 };
+
+const styles = StyleSheet.create({
+  textbox: {
+    flex: 2,
+  },
+  image: {
+    flex: 1,
+    borderRadius: 3,
+    width: 100,
+    height: 100,
+  },
+});
 
 ListItem.propTypes = {
   singleMedia: PropTypes.object.isRequired,

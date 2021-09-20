@@ -76,7 +76,7 @@ const useMedia = (ownFiles = false) => {
           'x-access-token': token,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringifyform(data),
+        body: JSON.stringify(data),
       };
       const result = await doFetch(baseUrl + 'media/' + id, options);
       return result;

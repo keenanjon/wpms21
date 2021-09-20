@@ -10,23 +10,17 @@ import {useMedia, useTag} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {appID} from '../utils/variables';
 import {MainContext} from '../contexts/MainContext';
-import exampleImage from '../assets/icon3.png';
+// import exampleImage from '../assets/icon3.png';
 
 const Upload = ({navigation}) => {
   const [image, setImage] = useState(require('../assets/icon3.png'));
-  const {
-    inputs,
-    handleInputChange,
-    setInputs,
-    handleReset,
-    errors,
-    handleOnEndEditing,
-  } = useUploadForm();
+  const {inputs, handleInputChange, handleReset, errors, handleOnEndEditing} =
+    useUploadForm();
   const {uploadMedia, loading} = useMedia();
   const {addTag} = useTag();
   const {update, setUpdate} = useContext(MainContext);
 
-  const exampleImageUri = Image.resolveAssetSource(exampleImage).uri;
+  // const exampleImageUri = Image.resolveAssetSource(exampleImage).uri;
 
   const doUpload = async () => {
     const filename = image.uri.split('/').pop();
