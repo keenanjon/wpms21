@@ -1,10 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import {uploadsUrl} from '../utils/variables';
 import {Avatar, Button, ListItem as RNEListItem} from 'react-native-elements';
+import {useMedia} from '../hooks/ApiHooks';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {MainContext} from '../contexts/MainContext';
 
 const ListItem = ({singleMedia, navigation, showButtons}) => {
   // console.log('singleMedia', singleMedia);
+  const {update, setUpdate} = useContext(MainContext);
+  const {deleteMedia} = useMedia();
+
   return (
     <RNEListItem
       bottomDivider
@@ -22,8 +28,30 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
         <RNEListItem.Subtitle>{singleMedia.description}</RNEListItem.Subtitle>
         {showButtons && (
           <>
-            <Button title="Modify"></Button>
-            <Button title="Delete"></Button>
+            <Button
+              title="Modify"
+              onPress={() => {
+                navigation.navigate('Modify', {singleMedia, navigation});
+              }}
+            ></Button>
+            <Button
+              title="Delete"
+              onPress={async () => {
+                try {
+                  const token = await AsyncStorage.getItem('userToken');
+                  const response = await deleteMedia(
+                    singleMedia.file_id,
+                    token
+                  );
+                  console.log('Delete', response);
+                  if (response.message) {
+                    setUpdate(update + 1);
+                  }
+                } catch (e) {
+                  console.log('ListItem, delete: ', e.message);
+                }
+              }}
+            ></Button>
           </>
         )}
       </RNEListItem.Content>

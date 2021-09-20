@@ -14,8 +14,14 @@ import exampleImage from '../assets/icon3.png';
 
 const Upload = ({navigation}) => {
   const [image, setImage] = useState(require('../assets/icon3.png'));
-  const {inputs, handleInputChange, handleReset, errors, handleOnEndEditing} =
-    useUploadForm();
+  const {
+    inputs,
+    handleInputChange,
+    setInputs,
+    handleReset,
+    errors,
+    handleOnEndEditing,
+  } = useUploadForm();
   const {uploadMedia, loading} = useMedia();
   const {addTag} = useTag();
   const {update, setUpdate} = useContext(MainContext);
@@ -50,7 +56,8 @@ const Upload = ({navigation}) => {
               onPress: () => {
                 setUpdate(update + 1);
                 handleReset();
-                setImage({uri: exampleImageUri});
+                setImage(require('../assets/icon3.png'));
+                // setImage(require({uri: exampleImageUri}));
                 navigation.navigate('Home');
               },
             },
@@ -108,11 +115,7 @@ const Upload = ({navigation}) => {
       <Button
         title={'Reset'}
         onPress={() => {
-          setImage({
-            uri: exampleImageUri,
-            // uri: 'file:///var/mobile/Containers/Data/Application/F255418C-E31E-4FC7-91CC-3C3CF082DB4D/Library/Caches/ExponentExperienceData/%2540anonymous%252FMyApp-dec91269-facd-4824-8094-94fc437ae193/ImagePicker/94FFBA3B-3DE0-4117-BACC-EE72DA85B220.jpg',
-          });
-
+          setImage(require('../assets/icon3.png'));
           handleReset();
         }}
       />
