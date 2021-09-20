@@ -50,7 +50,7 @@ const Upload = ({navigation}) => {
               onPress: () => {
                 setUpdate(update + 1);
                 handleReset();
-                setImage({uri: undefined});
+                setImage({uri: exampleImageUri});
                 navigation.navigate('Home');
               },
             },

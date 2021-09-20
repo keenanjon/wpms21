@@ -1,16 +1,17 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/display-name */
-import React from 'react';
+import React, {useContext} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import Home from '../views/Home';
 import Profile from '../views/Profile';
 import Single from '../views/Single';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Login from '../views/Login';
 import {MainContext} from '../contexts/MainContext';
-import {useContext} from 'react';
 import {Icon} from 'react-native-elements';
 import Upload from '../views/Upload';
+import MyFiles from '../views/MyFiles';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -26,15 +27,13 @@ const TabScreen = () => {
               iconName = 'home';
               break;
             case 'Profile':
-              iconName = 'beer';
+              iconName = 'account-box';
               break;
             case 'Upload':
-              iconName = 'flower';
+              iconName = 'account-box';
               break;
           }
-          return (
-            <Icon name={iconName} type="ionicon" size={size} color={color} />
-          );
+          return <Icon name={iconName} size={size} color={color} />;
         },
       })}
     >
@@ -58,13 +57,11 @@ const StackScreen = () => {
               headerShown: false,
             }}
           />
-
           <Stack.Screen name="Single" component={Single} />
+          <Stack.Screen name="My Files" component={MyFiles} />
         </>
       ) : (
-        <>
-          <Stack.Screen name="Login" component={Login} />
-        </>
+        <Stack.Screen name="Login" component={Login} />
       )}
     </Stack.Navigator>
   );

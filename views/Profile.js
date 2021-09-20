@@ -1,14 +1,15 @@
 import React, {useContext, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-import {StyleSheet, ActivityIndicator, ScrollView} from 'react-native';
+import {StyleSheet, Text, ActivityIndicator} from 'react-native';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Card, ListItem, Text} from 'react-native-elements';
+import {Card, ListItem} from 'react-native-elements';
 import {useTag} from '../hooks/ApiHooks';
 import {uploadsUrl} from '../utils/variables';
 import {Avatar} from 'react-native-elements/dist/avatar/Avatar';
+import {ScrollView} from 'react-native-gesture-handler';
 
-const Profile = (props) => {
+const Profile = ({navigation}) => {
   const {setIsLoggedIn, user} = useContext(MainContext);
   const [avatar, setAvatar] = useState('https://placekitten.com/400/400');
 
@@ -30,7 +31,7 @@ const Profile = (props) => {
     <ScrollView>
       <Card>
         <Card.Title>
-          <Text h3>{user.username}</Text>
+          <Text h1>{user.username}</Text>
         </Card.Title>
         <Card.Image
           source={{uri: avatar}}
@@ -38,15 +39,27 @@ const Profile = (props) => {
           PlaceholderContent={<ActivityIndicator />}
         />
         <ListItem>
-          <Avatar icon={{name: 'email', color: 'red'}} />
+          <Avatar icon={{name: 'email', color: 'black'}} />
           <Text>{user.email}</Text>
         </ListItem>
         <ListItem>
-          <Avatar icon={{name: 'user', type: 'font-awesome', color: 'red'}} />
+          <Avatar icon={{name: 'user', type: 'font-awesome', color: 'black'}} />
           <Text>{user.full_name}</Text>
         </ListItem>
+        <ListItem
+          bottomDivider
+          onPress={() => {
+            navigation.navigate('My Files');
+          }}
+        >
+          <Avatar icon={{name: 'logout', color: 'black'}} />
+          <ListItem.Content>
+            <ListItem.Title>My Files</ListItem.Title>
+          </ListItem.Content>
+          <ListItem.Chevron />
+        </ListItem>
         <ListItem bottomDivider onPress={logout}>
-          <Avatar icon={{name: 'logout', color: 'red'}} />
+          <Avatar icon={{name: 'logout', color: 'black'}} />
           <ListItem.Content>
             <ListItem.Title>Logout</ListItem.Title>
           </ListItem.Content>
@@ -58,7 +71,7 @@ const Profile = (props) => {
 };
 
 const styles = StyleSheet.create({
-  image: {width: '100%', height: undefined, borderRadius: 250, aspectRatio: 1},
+  image: {width: '100%', height: undefined, aspectRatio: 1},
 });
 
 Profile.propTypes = {
