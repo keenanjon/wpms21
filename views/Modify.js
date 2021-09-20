@@ -80,7 +80,6 @@ const Modify = ({route}) => {
           }
         }}
       />
-
       <Button
         raised
         title={'Modify'}
