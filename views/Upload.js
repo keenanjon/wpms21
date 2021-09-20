@@ -109,7 +109,7 @@ const Upload = ({navigation}) => {
         title={'Reset'}
         onPress={() => {
           setImage({
-            uri: exampleImageUri,
+            uri: undefined,
             // uri: 'file:///var/mobile/Containers/Data/Application/F255418C-E31E-4FC7-91CC-3C3CF082DB4D/Library/Caches/ExponentExperienceData/%2540anonymous%252FMyApp-dec91269-facd-4824-8094-94fc437ae193/ImagePicker/94FFBA3B-3DE0-4117-BACC-EE72DA85B220.jpg',
           });
 
