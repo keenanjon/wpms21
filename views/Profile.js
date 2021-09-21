@@ -31,7 +31,7 @@ const Profile = ({navigation}) => {
     <ScrollView>
       <Card>
         <Card.Title>
-          <Text h1>{user.username}</Text>
+          <Text h3>{user.username}</Text>
         </Card.Title>
         <Card.Image
           source={{uri: avatar}}
@@ -39,11 +39,11 @@ const Profile = ({navigation}) => {
           PlaceholderContent={<ActivityIndicator />}
         />
         <ListItem>
-          <Avatar icon={{name: 'email', color: 'black'}} />
+          <Avatar icon={{name: 'email', color: 'red'}} />
           <Text>{user.email}</Text>
         </ListItem>
         <ListItem>
-          <Avatar icon={{name: 'user', type: 'font-awesome', color: 'black'}} />
+          <Avatar icon={{name: 'user', type: 'font-awesome', color: 'red'}} />
           <Text>{user.full_name}</Text>
         </ListItem>
         <ListItem
@@ -52,14 +52,14 @@ const Profile = ({navigation}) => {
             navigation.navigate('My Files');
           }}
         >
-          <Avatar icon={{name: 'logout', color: 'black'}} />
+          <Avatar icon={{name: 'logout', color: 'red'}} />
           <ListItem.Content>
             <ListItem.Title>My Files</ListItem.Title>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
         <ListItem bottomDivider onPress={logout}>
-          <Avatar icon={{name: 'logout', color: 'black'}} />
+          <Avatar icon={{name: 'logout', color: 'red'}} />
           <ListItem.Content>
             <ListItem.Title>Logout</ListItem.Title>
           </ListItem.Content>
@@ -71,7 +71,7 @@ const Profile = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
-  image: {width: '100%', height: undefined, aspectRatio: 1},
+  image: {width: '100%', height: undefined, borderRadius: 250, aspectRatio: 1},
 });
 
 Profile.propTypes = {
