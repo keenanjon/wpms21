@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {StyleSheet, ActivityIndicator, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 import {uploadsUrl} from '../utils/variables';
@@ -17,6 +17,8 @@ import {formatDate} from '../utils/dateFunctions';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import {ScrollView} from 'react-native-gesture-handler';
 
+import {MainContext} from '../contexts/MainContext';
+
 // import * as React from 'react';
 
 const Single = ({route}) => {
@@ -31,6 +33,15 @@ const Single = ({route}) => {
   const [disabled, setDisabled] = useState(false);
   const {getFilesByTag} = useTag();
   const [avatar, setAvatar] = useState('http://placekitten.com/100');
+  const {setIsLoggedIn, user} = useContext(MainContext);
+
+  useEffect(() => {
+    (async () => {
+      const file = await getFilesByTag('avatar_' + user.user_id);
+      console.log('file', file);
+      setAvatar(uploadsUrl + file.pop().filename);
+    })();
+  }, [user]);
 
   // screen orientation, show video in fullscreen when landscape
   const handleVideoRef = (component) => {
@@ -109,6 +120,42 @@ const Single = ({route}) => {
     getLikes();
   }, []);
 
+  // What?
+
+  const xyloSounds = {
+    one: require('../assets/huokaus.mp3'),
+    two: require('../assets/huokaus.mp3'),
+    three: require('../assets/huokaus.mp3'),
+    four: require('../assets/huokaus.mp3'),
+    five: require('../assets/huokaus.mp3'),
+    six: require('../assets/huokaus.mp3'),
+    seven: require('../assets/huokaus.mp3'),
+  };
+
+  const handlePlaySound = async (note) => {
+    Audio.setIsEnabledAsync(true);
+    const soundObject = new Audio.Sound();
+
+    try {
+      const source = xyloSounds[note];
+      await soundObject.loadAsync(source);
+      await soundObject
+        .playAsync()
+        .then(async (playbackStatus) => {
+          setTimeout(() => {
+            soundObject.unloadAsync();
+          }, playbackStatus.playableDurationMillis);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // What?
+
   return (
     <ScrollView>
       <Card>
@@ -137,6 +184,7 @@ const Single = ({route}) => {
             PlaceholderContent={<ActivityIndicator />}
           />
         )}
+        {console.log('Mitä helvettiä: ', params.filename)}
         {params.media_type === 'video' && (
           <TouchableOpacity // usePoster hides video so use this to start it
             disabled={disabled}
@@ -166,17 +214,17 @@ const Single = ({route}) => {
         <Text style={styles.description}>{params.description}</Text>
         <ListItem>
           <Avatar source={{uri: avatar}} />
+          {console.log('Avatar on foorumissa: ', avatar)}
           <Text>{ownerInfo.username}</Text>
         </ListItem>
         <ListItem>
-          {/* TODO: show like or dislike button depending on the current like status,
-        calculate like count for a file */}
+          <Button title="Play sound" onPress={() => handlePlaySound('one')} />
 
           {iAmLikingIt ? (
             <Button
               title="Like"
               onPress={() => {
-                // use api hooks to POST a favourite
+                // use api hooks to DELETE a favourite
               }}
             />
           ) : (
