@@ -122,39 +122,157 @@ const Single = ({route}) => {
 
   // What?
 
-  const xyloSounds = {
-    one: require('../assets/huokaus.mp3'),
-    two: require('../assets/huokaus.mp3'),
-    three: require('../assets/huokaus.mp3'),
-    four: require('../assets/huokaus.mp3'),
-    five: require('../assets/huokaus.mp3'),
-    six: require('../assets/huokaus.mp3'),
-    seven: require('../assets/huokaus.mp3'),
-  };
+  const one = require('../assets/huokaus.mp3');
+  const two = require('../assets/jippii.mp3');
+  const three = require('../assets/ping.mp3');
+  const four = require('../assets/WindAmbience.mp3');
+  const five = require('../assets/Turret_Alert.mp3');
+
+  const audioArray = [
+    four,
+    five,
+    one,
+    one,
+    five,
+    three,
+    two,
+    three,
+    one,
+    two,
+    three,
+    three,
+    three,
+    five,
+    five,
+    three,
+    three,
+    three,
+    five,
+    five,
+    three,
+    one,
+    one,
+    three,
+    two,
+    three,
+    one,
+    two,
+    three,
+    three,
+    three,
+    five,
+    five,
+    three,
+    three,
+    three,
+    three,
+    five,
+    one,
+    one,
+    five,
+    three,
+    two,
+    three,
+    one,
+    two,
+    three,
+    three,
+    three,
+    five,
+    five,
+    three,
+    three,
+    three,
+    five,
+    five,
+    three,
+    one,
+    one,
+    three,
+    two,
+    three,
+    one,
+    two,
+    three,
+    three,
+    three,
+    five,
+    five,
+    three,
+    three,
+    three,
+    three,
+  ];
+  // let audioArray2 = [two, one, one, three, three, two, two];
+  // let soundObject = new Audio.Sound();
+
+  const toDataURL = (url) =>
+    fetch(url)
+      .then((response) => response.blob())
+      .then(
+        (blob) =>
+          new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+          })
+      );
 
   const handlePlaySound = async (note) => {
     Audio.setIsEnabledAsync(true);
-    const soundObject = new Audio.Sound();
 
-    try {
-      const source = xyloSounds[note];
-      await soundObject.loadAsync(source);
-      await soundObject
-        .playAsync()
-        .then(async (playbackStatus) => {
-          setTimeout(() => {
-            soundObject.unloadAsync();
-          }, playbackStatus.playableDurationMillis);
-        })
-        .catch((error) => {
+    for (let i = 0; i < audioArray.length; i++) {
+      const soundObject = new Audio.Sound();
+      if (soundObject) {
+        console.log('Ääntä? ');
+        // soundObject.pauseAsync();
+        // soundObject = new Audio.Sound();
+        try {
+          // const source = audioArray[note];
+          // await soundObject.loadAsync(source);
+
+          await soundObject.loadAsync(audioArray[i]);
+          await soundObject
+            .playAsync()
+            .then(async (playbackStatus) => {
+              setTimeout(() => {
+                soundObject.unloadAsync();
+              }, playbackStatus.playableDurationMillis);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } catch (error) {
           console.log(error);
-        });
-    } catch (error) {
-      console.log(error);
+        }
+      }
     }
   };
 
-  // What?
+  const mostCommonCharActer = (str) => {
+    let charMap = {};
+    let max = 0;
+    let maxChar = '';
+    for (let char of str) {
+      charMap[char] = charMap[char] + 1 || 1;
+    }
+    for (let char in charMap) {
+      // look at each char in charMap
+      if (charMap[char] > max) {
+        // if the value is greater than max
+        max = charMap[char]; // update new max value
+        maxChar = char; // set the max character
+      }
+    }
+    return maxChar;
+  };
+
+  // What? ends
+
+  // What? part 2
+
+  // What? part 2 ends
 
   return (
     <ScrollView>
@@ -184,7 +302,7 @@ const Single = ({route}) => {
             PlaceholderContent={<ActivityIndicator />}
           />
         )}
-        {console.log('Mitä helvettiä: ', params.filename)}
+        {console.log('Mitä helvettiä: ', params.filename.length)}
         {params.media_type === 'video' && (
           <TouchableOpacity // usePoster hides video so use this to start it
             disabled={disabled}
@@ -218,7 +336,21 @@ const Single = ({route}) => {
           <Text>{ownerInfo.username}</Text>
         </ListItem>
         <ListItem>
-          <Button title="Play sound" onPress={() => handlePlaySound('one')} />
+          <Button
+            title="Play sound"
+            onPress={() => {
+              // audioPointer = 0;
+              handlePlaySound();
+              toDataURL(uploadsUrl + params.filename).then((dataUrl) => {
+                console.log('RESULTTTTT:', dataUrl);
+                const jorma = dataUrl.slice([1], [100]);
+                console.log('RESULTTTTT2:', jorma.replace(/\//g, '8'));
+                console.log('RESULTTTTT3:', dataUrl.length);
+                console.log('RESULTTTTT4:', dataUrl.match(/A/g).length);
+                console.log('RESULTTTTT5:', dataUrl.match(/a/g).length);
+              });
+            }}
+          />
 
           {iAmLikingIt ? (
             <Button

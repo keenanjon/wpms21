@@ -86,6 +86,9 @@ const Upload = ({navigation}) => {
     });
 
     console.log('pickImage ', result);
+    console.log('width', result.width);
+
+    // console.log('DATAAAAA: ', imgData);
 
     if (!result.cancelled) {
       setImage({uri: result.uri});
@@ -96,6 +99,7 @@ const Upload = ({navigation}) => {
   return (
     <View>
       <Image source={image} style={{width: '100%', height: 200}} />
+      {console.log('Kuva saatana: ', image)}
       <Button title="Select media" onPress={pickImage} />
       <UploadForm
         title="Upload"
