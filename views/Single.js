@@ -16,7 +16,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {formatDate} from '../utils/dateFunctions';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import {ScrollView} from 'react-native-gesture-handler';
-
+import PixelColor from 'react-native-pixel-color';
 import {MainContext} from '../contexts/MainContext';
 
 // import * as React from 'react';
@@ -344,10 +344,23 @@ const Single = ({route}) => {
               toDataURL(uploadsUrl + params.filename).then((dataUrl) => {
                 console.log('RESULTTTTT:', dataUrl);
                 const jorma = dataUrl.slice([1], [100]);
+                console.log('RESULTTTTT1:', params.media_type);
                 console.log('RESULTTTTT2:', jorma.replace(/\//g, '8'));
                 console.log('RESULTTTTT3:', dataUrl.length);
                 console.log('RESULTTTTT4:', dataUrl.match(/A/g).length);
                 console.log('RESULTTTTT5:', dataUrl.match(/a/g).length);
+                const x = 100;
+                const y = 100;
+                PixelColor.getHex(dataUrl, {x, y})
+                  .then((color) => {
+                    console.log('VÄRIIIIIIIIIIIII: ', color);
+                    // #000000
+                  })
+                  .catch((err) => {
+                    // Oops, something went wrong. Check that the filename is correct and
+                    // inspect err to get more details.
+                    console.log('VÄRIIIIIIIIIIIII??: ');
+                  });
               });
             }}
           />
