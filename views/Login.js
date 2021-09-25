@@ -1,6 +1,11 @@
 /* eslint-disable no-undef */
 import React, {useContext, useEffect, useState} from 'react';
-import {StyleSheet, KeyboardAvoidingView, Platform} from 'react-native';
+import {
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+} from 'react-native';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -46,11 +51,13 @@ const Login = ({navigation}) => {
         style={styles.image}
       >
         {registerFormToggle ? (
-          <Card>
-            <Card.Divider />
-            <Card.Title h4>Register</Card.Title>
-            <RegisterForm navigation={navigation} />
-          </Card>
+          <ScrollView>
+            <Card>
+              <Card.Divider />
+              <Card.Title h4>Register</Card.Title>
+              <RegisterForm navigation={navigation} />
+            </Card>
+          </ScrollView>
         ) : (
           <Card>
             <Card.Title h4>Login</Card.Title>
@@ -58,20 +65,22 @@ const Login = ({navigation}) => {
           </Card>
         )}
         {/* TODO: add link/button & event handler to change state: setRegformtoggle(!regformtoggle);  */}
-        <ListItem
-          onPress={() => {
-            setRegisterFormToggle(!registerFormToggle);
-          }}
-        >
-          <ListItem.Content>
-            <Text style={styles.text}>
-              {registerFormToggle
-                ? 'Already registered? Login here'
-                : 'No account? Register here.'}
-            </Text>
-          </ListItem.Content>
-          <ListItem.Chevron />
-        </ListItem>
+        <Card>
+          <ListItem
+            onPress={() => {
+              setRegisterFormToggle(!registerFormToggle);
+            }}
+          >
+            <ListItem.Content>
+              <Text style={styles.text}>
+                {registerFormToggle
+                  ? 'Already registered? Login here'
+                  : 'No account? Register here.'}
+              </Text>
+            </ListItem.Content>
+            <ListItem.Chevron />
+          </ListItem>
+        </Card>
       </ImageBackground>
     </KeyboardAvoidingView>
   );

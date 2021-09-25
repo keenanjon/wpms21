@@ -122,87 +122,30 @@ const Single = ({route}) => {
 
   // What?
 
+  let a = 0;
+  let b = 0;
+  let c = 0;
+  let d = 0;
+  let e = 0;
+
   const one = require('../assets/huokaus.mp3');
   const two = require('../assets/jippii.mp3');
-  const three = require('../assets/ping.mp3');
-  const four = require('../assets/WindAmbience.mp3');
+  const three = require('../assets/Launcher_Explosion.wav');
+  const four = require('../assets/Shotgun_Shot.wav');
   const five = require('../assets/Turret_Alert.mp3');
 
-  const audioArray = [
-    four,
-    five,
-    one,
-    one,
-    five,
-    three,
-    two,
-    three,
-    one,
-    two,
-    three,
-    three,
-    three,
-    five,
-    five,
-    three,
-    three,
-    three,
-    five,
-    five,
-    three,
-    one,
-    one,
-    three,
-    two,
-    three,
-    one,
-    two,
-    three,
-    three,
-    three,
-    five,
-    five,
-    three,
-    three,
-    three,
-    three,
-    five,
-    one,
-    one,
-    five,
-    three,
-    two,
-    three,
-    one,
-    two,
-    three,
-    three,
-    three,
-    five,
-    five,
-    three,
-    three,
-    three,
-    five,
-    five,
-    three,
-    one,
-    one,
-    three,
-    two,
-    three,
-    one,
-    two,
-    three,
-    three,
-    three,
-    five,
-    five,
-    three,
-    three,
-    three,
-    three,
+  const audioJorma = [one, two, three, four, five, one, two, three, four, five];
+
+  const audioKalevi = [
+    audioJorma[a],
+    audioJorma[b],
+    audioJorma[c],
+    audioJorma[d],
+    audioJorma[e],
   ];
+
+  console.log(audioKalevi.length);
+
   // let audioArray2 = [two, one, one, three, three, two, two];
   // let soundObject = new Audio.Sound();
 
@@ -222,17 +165,19 @@ const Single = ({route}) => {
   const handlePlaySound = async (note) => {
     Audio.setIsEnabledAsync(true);
 
-    for (let i = 0; i < audioArray.length; i++) {
+    for (let i = 0; i < note.length; i++) {
       const soundObject = new Audio.Sound();
       if (soundObject) {
-        console.log('Ääntä? ');
+        // console.log('Ääntä? ', audioJorma[note]);
         // soundObject.pauseAsync();
         // soundObject = new Audio.Sound();
         try {
           // const source = audioArray[note];
           // await soundObject.loadAsync(source);
 
-          await soundObject.loadAsync(audioArray[i]);
+          await soundObject.loadAsync(audioJorma[note[i]]);
+
+          console.log('SOUNDI NRO: ', note[i]);
           await soundObject
             .playAsync()
             .then(async (playbackStatus) => {
@@ -340,27 +285,25 @@ const Single = ({route}) => {
             title="Play sound"
             onPress={() => {
               // audioPointer = 0;
-              handlePlaySound();
+
               toDataURL(uploadsUrl + params.filename).then((dataUrl) => {
                 console.log('RESULTTTTT:', dataUrl);
-                const jorma = dataUrl.slice([1], [100]);
+                const tapio = dataUrl.length.toString();
+                const ville = dataUrl.slice([1], [100]);
+                a = parseInt(tapio[0]);
+                b = parseInt(tapio[1]);
+                c = parseInt(tapio[2]);
+                d = parseInt(tapio[3]);
+                e = parseInt(tapio[4]);
                 console.log('RESULTTTTT1:', params.media_type);
-                console.log('RESULTTTTT2:', jorma.replace(/\//g, '8'));
+                console.log('RESULTTTTT2:', ville.replace(/\//g, '8'));
                 console.log('RESULTTTTT3:', dataUrl.length);
                 console.log('RESULTTTTT4:', dataUrl.match(/A/g).length);
                 console.log('RESULTTTTT5:', dataUrl.match(/a/g).length);
-                const x = 100;
-                const y = 100;
-                PixelColor.getHex(dataUrl, {x, y})
-                  .then((color) => {
-                    console.log('VÄRIIIIIIIIIIIII: ', color);
-                    // #000000
-                  })
-                  .catch((err) => {
-                    // Oops, something went wrong. Check that the filename is correct and
-                    // inspect err to get more details.
-                    console.log('VÄRIIIIIIIIIIIII??: ');
-                  });
+                console.log('TAPIOOOOO:', tapio);
+                console.log('TAPIOOOOOH:', e, d, c, b, a);
+                const kukkaMaaria = [e, d, c, b, a];
+                handlePlaySound(kukkaMaaria);
               });
             }}
           />
