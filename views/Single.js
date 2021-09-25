@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {StyleSheet, ActivityIndicator, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
-import {uploadsUrl} from '../utils/variables';
+import {audioJorma, uploadsUrl} from '../utils/variables';
 import {
   Card,
   ListItem,
@@ -128,6 +128,7 @@ const Single = ({route}) => {
   let d = 0;
   let e = 0;
 
+  /*
   const one = require('../assets/huokaus.mp3');
   const two = require('../assets/jippii.mp3');
   const three = require('../assets/Launcher_Explosion.wav');
@@ -136,6 +137,7 @@ const Single = ({route}) => {
 
   const audioJorma = [one, two, three, four, five, one, two, three, four, five];
 
+
   const audioKalevi = [
     audioJorma[a],
     audioJorma[b],
@@ -143,8 +145,9 @@ const Single = ({route}) => {
     audioJorma[d],
     audioJorma[e],
   ];
+*/
 
-  console.log(audioKalevi.length);
+  // console.log(audioKalevi.length);
 
   // let audioArray2 = [two, one, one, three, three, two, two];
   // let soundObject = new Audio.Sound();
