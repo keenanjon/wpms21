@@ -337,7 +337,7 @@ const Single = ({route}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#000',
     paddingTop: 20,
     padding: 20,
   },
@@ -346,6 +346,7 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
     fontSize: 17,
     paddingBottom: 15,
+    color: 'green',
   },
   image: {
     width: '100%',
@@ -356,6 +357,7 @@ const styles = StyleSheet.create({
 
   description: {
     marginBottom: 10,
+    color: 'green',
   },
 });
 

@@ -73,9 +73,12 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
   );
 };
 
+// not in use
 const styles = StyleSheet.create({
   textbox: {
     flex: 2,
+    backgroundColor: 'black',
+    color: 'green',
   },
   image: {
     flex: 1,
