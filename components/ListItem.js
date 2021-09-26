@@ -19,6 +19,7 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
       onPress={() => {
         navigation.navigate('Single', singleMedia);
       }}
+      containerStyle={{backgroundColor: 'black'}}
     >
       <Avatar
         size="large"
@@ -26,13 +27,13 @@ const ListItem = ({singleMedia, navigation, showButtons}) => {
         source={{uri: uploadsUrl + singleMedia.thumbnails?.w160}}
       ></Avatar>
       <RNEListItem.Content>
-        <RNEListItem.Title numberOfLines={1} h4>
+        <RNEListItem.Title numberOfLines={1} h4 style={{color: 'green'}}>
           {singleMedia.title}
         </RNEListItem.Title>
-        <RNEListItem.Subtitle numberOfLines={1}>
+        <RNEListItem.Subtitle numberOfLines={1} style={{color: 'green'}}>
           {timeSince(singleMedia.time_added)}
         </RNEListItem.Subtitle>
-        <RNEListItem.Subtitle numberOfLines={1}>
+        <RNEListItem.Subtitle numberOfLines={1} style={{color: 'green'}}>
           {singleMedia.description}
         </RNEListItem.Subtitle>
         {showButtons && (

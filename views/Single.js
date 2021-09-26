@@ -223,21 +223,31 @@ const Single = ({route}) => {
   // What? part 2 ends
 
   return (
-    <ScrollView>
-      <Card>
-        <ListItem>
+    <ScrollView style={{backgroundColor: 'black'}}>
+      <Card containerStyle={{backgroundColor: 'black'}}>
+        <ListItem containerStyle={{backgroundColor: 'black'}}>
           {params.media_type === 'image' && (
-            <Icon name="image" type="ionicon" />
+            <Icon
+              name="image"
+              type="ionicon"
+              style={{backgroundColor: 'white'}}
+            />
           )}
           {params.media_type === 'video' && (
-            <Icon name="videocam" type="ionicon" />
+            <Icon
+              name="videocam"
+              type="ionicon"
+              style={{backgroundColor: 'white'}}
+            />
           )}
           <ListItem.Content>
-            <ListItem.Title>{params.title}</ListItem.Title>
-            <ListItem.Subtitle>
+            <ListItem.Title style={{color: 'green'}}>
+              {params.title}
+            </ListItem.Title>
+            <ListItem.Subtitle style={{color: 'green'}}>
               {formatDate(new Date(params.time_added), 'eeee d. MMMM y')}
             </ListItem.Subtitle>
-            <ListItem.Subtitle>
+            <ListItem.Subtitle style={{color: 'green'}}>
               klo {formatDate(new Date(params.time_added), 'HH.mm')}
             </ListItem.Subtitle>
           </ListItem.Content>
@@ -278,12 +288,12 @@ const Single = ({route}) => {
         )}
         <Card.Divider />
         <Text style={styles.description}>{params.description}</Text>
-        <ListItem>
+        <ListItem containerStyle={{backgroundColor: 'black'}}>
           <Avatar source={{uri: avatar}} />
           {console.log('Avatar on foorumissa: ', avatar)}
-          <Text>{ownerInfo.username}</Text>
+          <Text style={{color: 'green'}}>{ownerInfo.username}</Text>
         </ListItem>
-        <ListItem>
+        <ListItem containerStyle={{backgroundColor: 'black'}}>
           <Button
             title="Play sound"
             onPress={() => {
@@ -327,7 +337,7 @@ const Single = ({route}) => {
             />
           )}
 
-          <Text>Total likes: {likes.length}</Text>
+          <Text style={{color: 'green'}}>Total likes: {likes.length}</Text>
         </ListItem>
       </Card>
     </ScrollView>
@@ -346,6 +356,10 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
     fontSize: 17,
     paddingBottom: 15,
+    color: 'green',
+  },
+  black: {
+    backgroundColor: '#000',
     color: 'green',
   },
   image: {

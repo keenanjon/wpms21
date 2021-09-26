@@ -3,13 +3,14 @@ import React, {useState, useEffect, useContext} from 'react';
 import PropTypes from 'prop-types';
 import {View, Platform, ActivityIndicator, Alert} from 'react-native';
 import UploadForm from '../components/UploadForm';
-import {Button, Image} from 'react-native-elements';
+import {Button, Image, Card} from 'react-native-elements';
 import useUploadForm from '../hooks/UploadHooks';
 import * as ImagePicker from 'expo-image-picker';
 import {useMedia, useTag} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {appID} from '../utils/variables';
 import {MainContext} from '../contexts/MainContext';
+import {ScrollView} from 'react-native-gesture-handler';
 // import exampleImage from '../assets/icon3.png';
 
 const Upload = ({navigation}) => {
@@ -97,29 +98,33 @@ const Upload = ({navigation}) => {
   };
 
   return (
-    <View>
-      <Image source={image} style={{width: '100%', height: 200}} />
-      {console.log('Kuva saatana: ', image)}
-      <Button title="Select media" onPress={pickImage} />
-      <UploadForm
-        title="Upload"
-        handleSubmit={doUpload}
-        handleInputChange={handleInputChange}
-        handleOnEndEditing={handleOnEndEditing}
-        errors={errors}
-        loading={loading}
-        image={image}
-        inputs={inputs}
-      />
-      {loading && <ActivityIndicator />}
-      <Button
-        title={'Reset'}
-        onPress={() => {
-          setImage(require('../assets/icon3.png'));
-          handleReset();
-        }}
-      />
-    </View>
+    <ScrollView style={{backgroundColor: 'black'}}>
+      <Card containerStyle={{backgroundColor: 'black'}}>
+        <View style={{backgroundColor: 'black'}}>
+          <Image source={image} style={{width: '100%', height: 200}} />
+          {console.log('Kuva saatana: ', image)}
+          <Button title="Select media" onPress={pickImage} />
+          <UploadForm
+            title="Upload"
+            handleSubmit={doUpload}
+            handleInputChange={handleInputChange}
+            handleOnEndEditing={handleOnEndEditing}
+            errors={errors}
+            loading={loading}
+            image={image}
+            inputs={inputs}
+          />
+          {loading && <ActivityIndicator />}
+          <Button
+            title={'Reset'}
+            onPress={() => {
+              setImage(require('../assets/icon3.png'));
+              handleReset();
+            }}
+          />
+        </View>
+      </Card>
+    </ScrollView>
   );
 };
 

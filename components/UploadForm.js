@@ -15,6 +15,8 @@ const UploadForm = ({
   return (
     <>
       <Input
+        style={{backgroundColor: 'black'}}
+        placeholderTextColor="green"
         autoCapitalize="none"
         placeholder="title"
         onChangeText={(txt) => handleInputChange('title', txt)}
@@ -26,6 +28,8 @@ const UploadForm = ({
         value={inputs.title}
       />
       <Input
+        style={{backgroundColor: 'black'}}
+        placeholderTextColor="green"
         autoCapitalize="none"
         placeholder="description"
         multiline={true}

@@ -28,40 +28,51 @@ const Profile = ({navigation}) => {
     setIsLoggedIn(false);
   };
   return (
-    <ScrollView>
-      <Card>
+    <ScrollView style={{backgroundColor: 'black'}}>
+      <Card containerStyle={{backgroundColor: 'black'}}>
         <Card.Title>
-          <Text h3>{user.username}</Text>
+          <Text style={{color: 'green', fontSize: '39'}} h3>
+            {user.username}
+          </Text>
         </Card.Title>
         <Card.Image
           source={{uri: avatar}}
           style={styles.image}
           PlaceholderContent={<ActivityIndicator />}
         />
-        <ListItem>
-          <Avatar icon={{name: 'email', color: 'red'}} />
-          <Text>{user.email}</Text>
+        <ListItem containerStyle={{backgroundColor: 'black'}}>
+          <Avatar icon={{name: 'email', color: 'green'}} />
+          <Text style={{color: 'green', fontSize: '17'}}>{user.email}</Text>
         </ListItem>
-        <ListItem>
-          <Avatar icon={{name: 'user', type: 'font-awesome', color: 'red'}} />
-          <Text>{user.full_name}</Text>
+        <ListItem containerStyle={{backgroundColor: 'black'}}>
+          <Avatar icon={{name: 'user', type: 'font-awesome', color: 'green'}} />
+          <Text style={{color: 'green', fontSize: '17'}}>{user.full_name}</Text>
         </ListItem>
         <ListItem
           bottomDivider
+          containerStyle={{backgroundColor: 'black'}}
           onPress={() => {
             navigation.navigate('My Files');
           }}
         >
-          <Avatar icon={{name: 'logout', color: 'red'}} />
+          <Avatar icon={{name: 'logout', color: 'green'}} />
           <ListItem.Content>
-            <ListItem.Title>My Files</ListItem.Title>
+            <ListItem.Title style={{color: 'green', fontSize: '17'}}>
+              My Files
+            </ListItem.Title>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
-        <ListItem bottomDivider onPress={logout}>
-          <Avatar icon={{name: 'logout', color: 'red'}} />
+        <ListItem
+          bottomDivider
+          onPress={logout}
+          containerStyle={{backgroundColor: 'black'}}
+        >
+          <Avatar icon={{name: 'logout', color: 'green'}} />
           <ListItem.Content>
-            <ListItem.Title>Logout</ListItem.Title>
+            <ListItem.Title style={{color: 'green', fontSize: '17'}}>
+              Logout
+            </ListItem.Title>
           </ListItem.Content>
           <ListItem.Chevron />
         </ListItem>
